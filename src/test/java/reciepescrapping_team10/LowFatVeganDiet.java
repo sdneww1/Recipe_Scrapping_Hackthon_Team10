@@ -40,6 +40,7 @@ public class LowFatVeganDiet {
 			   // .findElement -----> finds the tag <a> inside the current WebElement
 			   // .getAttribute ----> returns the href attribute of the <a> tag in the current WebElement
 			   links.add(e.findElement(By.tagName("a")).getAttribute("href"));
+			   System.out.println(links);
 			  }
 		 
 			  List<WebElement> raw_ids = driver.findElements((By.className("rcc_rcpno")));
