@@ -55,8 +55,10 @@ public class LFVOptionalRecipe_cofeeandHerbalDrink  {
 
     public static void extractRecipe_CoffeeWithoutSugar() throws InterruptedException {
         List<String> remove_bev = Arrays.asList("sugar");
+        
+        driver.findElement(By.xpath("//div[text()='RECIPES']")).click();
 
-        driver.findElement(By.id("ctl00_cntrightpanel_HyperLink27")).click(); // click on more button
+       // driver.findElement(By.id("ctl00_cntrightpanel_HyperLink27")).click(); // click on more button
         driver.findElement(By.xpath("//a[@id='ctl00_cntleftpanel_ingtree_tvIngn120']/img")).click();
         
         WebElement coffee = driver.findElement(By.id("ctl00_cntleftpanel_ingtree_tvIngt134")); 
@@ -65,14 +67,14 @@ public class LFVOptionalRecipe_cofeeandHerbalDrink  {
         extractRecipesCoffeDrink(remove_bev, "CoffeeWithoutSugar");
     }
 
-    public static void extractRecipesHerbalDrink(List<String> remove_bev, String sheetName) throws InterruptedException {
+    public static void extractRecipesHerbalDrink(List<String> remove_bev, String LFVOptionalRecipe) throws InterruptedException {
         int rowCounter = 1;
 
         
         
-        for (int i = 1; i <= 1; i++) {
-            int pageindex = i;
-            driver.navigate().to("https://www.tarladalal.com/recipes-using-lemonade-lemon-drink-1008?" + "&pageindex=" + i);
+     //   for (int i = 1; i <= 1; i++) {
+        //    int pageindex = i;
+         //   driver.navigate().to("https://www.tarladalal.com/recipes-using-lemonade-lemon-drink-1008?" + "&pageindex=" + i);
             List<WebElement> recipeCardElements = driver.findElements(By.xpath("//article[@class='rcc_recipecard']"));
             List<String> recipeUrls = new ArrayList<>();
             Map<String, String> recipeIdUrls = new HashMap<>();
@@ -99,7 +101,7 @@ public class LFVOptionalRecipe_cofeeandHerbalDrink  {
                         ExcelWriter writeOutput = new  ExcelWriter();
                         // Recipe id
                         try {
-                            writeOutput.setCellData(sheetName, rowCounter, 0, recipeId);
+                            writeOutput.setCellData(LFVOptionalRecipe, rowCounter, 0, recipeId);
                         } catch (Exception e) {
                         }
 
@@ -108,28 +110,28 @@ public class LFVOptionalRecipe_cofeeandHerbalDrink  {
                             WebElement recipeTitle = driver
                                     .findElement(By.xpath("//span[@id= 'ctl00_cntrightpanel_lblRecipeName']"));
                             System.out.print(recipeTitle.getText());
-                            writeOutput.setCellData(sheetName, rowCounter, 1, recipeTitle.getText());
+                            writeOutput.setCellData(LFVOptionalRecipe, rowCounter, 1, recipeTitle.getText());
                         } catch (Exception e) {
                         }
                         try {
                             WebElement recipeCategory = driver.findElement(By.xpath(
                                     "//span[@itemprop= 'description']/*[contains (text(), 'breakfast') or contains (text(), 'lunch') or contains (text(), 'dinner')]"));
                             System.out.print(recipeCategory.getText());
-                            writeOutput.setCellData(sheetName, rowCounter, 2, recipeCategory.getText());
+                            writeOutput.setCellData(LFVOptionalRecipe, rowCounter, 2, recipeCategory.getText());
                         } catch (Exception e) {
                         }
                         try {
                             WebElement foodCategory = driver
                                     .findElement(By.xpath("//a/span[text()= 'No Cooking Veg Indian']"));
                             System.out.print(foodCategory.getText());
-                            writeOutput.setCellData(sheetName, rowCounter, 3, foodCategory.getText());
+                            writeOutput.setCellData(LFVOptionalRecipe, rowCounter, 3, foodCategory.getText());
                         } catch (Exception e) {
                         }
 
                         try {
                             WebElement nameOfIngredients = driver.findElement(By.xpath("//div[@id= 'rcpinglist']"));
                             System.out.print(nameOfIngredients.getText());
-                            writeOutput.setCellData(sheetName, rowCounter, 4, nameOfIngredients.getText());
+                            writeOutput.setCellData(LFVOptionalRecipe, rowCounter, 4, nameOfIngredients.getText());
                         } catch (Exception e) {
                         }
 
@@ -137,14 +139,14 @@ public class LFVOptionalRecipe_cofeeandHerbalDrink  {
                             WebElement preparationTime = driver
                                     .findElement(By.xpath("//p/time[@itemprop= 'prepTime']"));
                             System.out.print(preparationTime.getText());
-                            writeOutput.setCellData(sheetName, rowCounter, 5, preparationTime.getText());
+                            writeOutput.setCellData(LFVOptionalRecipe, rowCounter, 5, preparationTime.getText());
                         } catch (Exception e) {
                         }
 
                         try {
                             WebElement cookTime = driver.findElement(By.xpath("//p/time[@itemprop= 'cookTime']"));
                             System.out.print(cookTime.getText());
-                            writeOutput.setCellData(sheetName, rowCounter, 6, cookTime.getText());
+                            writeOutput.setCellData(LFVOptionalRecipe, rowCounter, 6, cookTime.getText());
                         } catch (Exception e) {
                         }
 
@@ -152,18 +154,18 @@ public class LFVOptionalRecipe_cofeeandHerbalDrink  {
                             WebElement prepMethod = driver
                                     .findElement(By.xpath("//div[@id= 'ctl00_cntrightpanel_pnlRcpMethod']"));
                             System.out.print(prepMethod.getText());
-                            writeOutput.setCellData(sheetName, rowCounter, 7, prepMethod.getText());
+                            writeOutput.setCellData(LFVOptionalRecipe, rowCounter, 7, prepMethod.getText());
                         } catch (Exception e) {
                         }
                         try {
                             WebElement nutrients = driver.findElement(By.xpath("//table[@id= 'rcpnutrients']"));
                             System.out.print(nutrients.getText());
-                            writeOutput.setCellData(sheetName, rowCounter, 8, nutrients.getText());
+                            writeOutput.setCellData(LFVOptionalRecipe, rowCounter, 8, nutrients.getText());
                         } catch (Exception e) {
                         }
                         try {
                             System.out.print(recipeUrl);
-                            writeOutput.setCellData(sheetName, rowCounter, 9, recipeUrl);
+                            writeOutput.setCellData(LFVOptionalRecipe, rowCounter, 9, recipeUrl);
                         } catch (Exception e) {
                         }
 
@@ -174,9 +176,9 @@ public class LFVOptionalRecipe_cofeeandHerbalDrink  {
                 }
             }
         }
-    }
+    
 
-    public static void extractRecipesCoffeDrink(List<String> remove_bev, String sheetName) throws InterruptedException {
+    public static void extractRecipesCoffeDrink(List<String> remove_bev, String LFVOptionalRecipe) throws InterruptedException {
         int rowCounter = 1;
 
         
@@ -210,7 +212,7 @@ public class LFVOptionalRecipe_cofeeandHerbalDrink  {
                         ExcelWriter writeOutput = new  ExcelWriter();
                         // Recipe id
                         try {
-                            writeOutput.setCellData(sheetName, rowCounter, 0, recipeId);
+                            writeOutput.setCellData(LFVOptionalRecipe, rowCounter, 0, recipeId);
                         } catch (Exception e) {
                         }
 
@@ -219,28 +221,28 @@ public class LFVOptionalRecipe_cofeeandHerbalDrink  {
                             WebElement recipeTitle = driver
                                     .findElement(By.xpath("//span[@id= 'ctl00_cntrightpanel_lblRecipeName']"));
                             System.out.print(recipeTitle.getText());
-                            writeOutput.setCellData(sheetName, rowCounter, 1, recipeTitle.getText());
+                            writeOutput.setCellData(LFVOptionalRecipe, rowCounter, 1, recipeTitle.getText());
                         } catch (Exception e) {
                         }
                         try {
                             WebElement recipeCategory = driver.findElement(By.xpath(
                                     "//span[@itemprop= 'description']/*[contains (text(), 'breakfast') or contains (text(), 'lunch') or contains (text(), 'dinner')]"));
                             System.out.print(recipeCategory.getText());
-                            writeOutput.setCellData(sheetName, rowCounter, 2, recipeCategory.getText());
+                            writeOutput.setCellData(LFVOptionalRecipe, rowCounter, 2, recipeCategory.getText());
                         } catch (Exception e) {
                         }
                         try {
                             WebElement foodCategory = driver
                                     .findElement(By.xpath("//a/span[text()= 'No Cooking Veg Indian']"));
                             System.out.print(foodCategory.getText());
-                            writeOutput.setCellData(sheetName, rowCounter, 3, foodCategory.getText());
+                            writeOutput.setCellData(LFVOptionalRecipe, rowCounter, 3, foodCategory.getText());
                         } catch (Exception e) {
                         }
 
                         try {
                             WebElement nameOfIngredients = driver.findElement(By.xpath("//div[@id= 'rcpinglist']"));
                             System.out.print(nameOfIngredients.getText());
-                            writeOutput.setCellData(sheetName, rowCounter, 4, nameOfIngredients.getText());
+                            writeOutput.setCellData(LFVOptionalRecipe, rowCounter, 4, nameOfIngredients.getText());
                         } catch (Exception e) {
                         }
 
@@ -248,14 +250,14 @@ public class LFVOptionalRecipe_cofeeandHerbalDrink  {
                             WebElement preparationTime = driver
                                     .findElement(By.xpath("//p/time[@itemprop= 'prepTime']"));
                             System.out.print(preparationTime.getText());
-                            writeOutput.setCellData(sheetName, rowCounter, 5, preparationTime.getText());
+                            writeOutput.setCellData(LFVOptionalRecipe, rowCounter, 5, preparationTime.getText());
                         } catch (Exception e) {
                         }
 
                         try {
                             WebElement cookTime = driver.findElement(By.xpath("//p/time[@itemprop= 'cookTime']"));
                             System.out.print(cookTime.getText());
-                            writeOutput.setCellData(sheetName, rowCounter, 6, cookTime.getText());
+                            writeOutput.setCellData(LFVOptionalRecipe, rowCounter, 6, cookTime.getText());
                         } catch (Exception e) {
                         }
 
@@ -263,18 +265,18 @@ public class LFVOptionalRecipe_cofeeandHerbalDrink  {
                             WebElement prepMethod = driver
                                     .findElement(By.xpath("//div[@id= 'ctl00_cntrightpanel_pnlRcpMethod']"));
                             System.out.print(prepMethod.getText());
-                            writeOutput.setCellData(sheetName, rowCounter, 7, prepMethod.getText());
+                            writeOutput.setCellData(LFVOptionalRecipe, rowCounter, 7, prepMethod.getText());
                         } catch (Exception e) {
                         }
                         try {
                             WebElement nutrients = driver.findElement(By.xpath("//table[@id= 'rcpnutrients']"));
                             System.out.print(nutrients.getText());
-                            writeOutput.setCellData(sheetName, rowCounter, 8, nutrients.getText());
+                            writeOutput.setCellData(LFVOptionalRecipe, rowCounter, 8, nutrients.getText());
                         } catch (Exception e) {
                         }
                         try {
                             System.out.print(recipeUrl);
-                            writeOutput.setCellData(sheetName, rowCounter, 9, recipeUrl);
+                            writeOutput.setCellData(LFVOptionalRecipe, rowCounter, 9, recipeUrl);
                         } catch (Exception e) {
                         }
 
