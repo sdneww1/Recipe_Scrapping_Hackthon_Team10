@@ -64,7 +64,7 @@ public class LFVOptionalRecipe_cofeeandHerbalDrink  {
         WebElement coffee = driver.findElement(By.id("ctl00_cntleftpanel_ingtree_tvIngt134")); 
         coffee.click();// Navigate to coffee section
 
-        extractRecipesCoffeDrink(remove_bev, "CoffeeWithoutSugar");
+        extractRecipesCoffeDrink(remove_bev, "LFVOptionalRecipe");
     }
 
     public static void extractRecipesHerbalDrink(List<String> remove_bev, String LFVOptionalRecipe) throws InterruptedException {
@@ -194,9 +194,9 @@ public class LFVOptionalRecipe_cofeeandHerbalDrink  {
                 recipeUrls.add("https://www.tarladalal.com/" + recipeCardElement
                         .findElement(By.xpath("//span[@class='rcc_recipename']/a")).getDomAttribute("href"));
 
-                recipeIdUrls.put(recipeCardElement.getDomAttribute("id").replace("rcp", ""),
-                        "https://www.tarladalal.com/"
-                                + recipeCardElement.findElement(By.tagName("a")).getDomAttribute("href"));
+           //     recipeIdUrls.put(recipeCardElement.getDomAttribute("id").replace("rcp", ""),
+              //          "https://www.tarladalal.com/"
+                       //         + recipeCardElement.findElement(By.tagName("a")).getDomAttribute("href"));
             });
 
             for (Map.Entry<String, String> recipeIdUrlEntry : recipeIdUrls.entrySet()) {

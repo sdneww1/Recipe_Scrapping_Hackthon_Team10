@@ -39,7 +39,7 @@ public class LFVOptional_recipes  {
 
 	}
 
-	public static void extractRecipe() throws InterruptedException {
+	public static void extractRecipe_HerbalDrinks() throws InterruptedException {
 
 		List<String> remove_bev = Arrays.asList(new String[] { "sugar" });
 
@@ -48,7 +48,7 @@ public class LFVOptional_recipes  {
 		driver.findElement(By.xpath("//a[@id='ctl00_cntleftpanel_ingtree_tvIngn120']/img")).click();
 
 		driver.findElement(By.id("ctl00_cntleftpanel_ingtree_tvIngt147")).click();
-//[id=ctl00_cntleftpanel_ingtree_tvIngt147]
+
 		int rowCounter = 1;
 		// run in a loop for all recipe in a page
 		// List<String> pageBeginsWithList = Arrays.asList(new String[] { "1", "2"});
@@ -189,7 +189,8 @@ public class LFVOptional_recipes  {
 		}
 
 	}
-
+	
+	
 	private static boolean toExclude(List<String> eliminators) {
 		AtomicBoolean isEliminatorPresent = new AtomicBoolean(false);
 
@@ -221,7 +222,7 @@ public class LFVOptional_recipes  {
 	public static void main(String[] args) throws InterruptedException {
 
 		setUpDriver();
-		extractRecipe();
+		extractRecipe_HerbalDrinks();
 
 	}
 
