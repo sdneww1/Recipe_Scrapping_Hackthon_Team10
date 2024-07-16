@@ -1,4 +1,5 @@
 package reciepescrapping_team10;
+
 import java.time.Duration;
 
 
@@ -19,9 +20,8 @@ import org.testng.annotations.BeforeTest;
 import reciepescrapping_team10_utility.ExcelWriter;
 
 
-
 public class LCHFFood_Processing_Steamed {
-	
+
 	public static WebDriver driver;
 
 	@BeforeTest
@@ -65,18 +65,16 @@ public class LCHFFood_Processing_Steamed {
 				String recipeId = recipeIdUrlEntry.getKey();
 				driver.navigate().to(recipeUrl);
 				driver.manage().timeouts().implicitlyWait(2, TimeUnit.SECONDS);
-
+try {
 				try {
 					if ((isAdded(add))) {
 						ExcelWriter writeOutput = new ExcelWriter();
 						
-						// Debugging - Print current recipe URL and ID
-					//	System.out.println("Processing recipe: " + recipeUrl);
-					//	System.out.println("Recipe ID: " + recipeId);
+					
 						
 						// Recipe id
 						try {
-							writeOutput.setCellData("LCHFFood_Processing", rowCounter, 0, recipeId);
+							writeOutput.setCellData("LCHFFoodSteamed", rowCounter, 0, recipeId);
 						} catch (Exception e) {
 							e.printStackTrace();
 						}
@@ -85,92 +83,180 @@ public class LCHFFood_Processing_Steamed {
 						try {
 							WebElement recipeTitle = driver.findElement(By.xpath("//span[@id='ctl00_cntrightpanel_lblRecipeName']"));
 							System.out.print("Recipe Name: " + recipeTitle.getText());
-							writeOutput.setCellData("LCHFFood_Processing", rowCounter, 1, recipeTitle.getText());
+							writeOutput.setCellData("LCHFFoodSteamed", rowCounter, 1, recipeTitle.getText());
 						} catch (Exception e) {
 							e.printStackTrace();
 						}
 
-						// Recipe Category
 						try {
-							WebElement recipeCategory = driver.findElement(By.xpath(
-								"//span[@itemprop='description']/*[contains(text(), 'breakfast') or contains(text(), 'lunch') or contains(text(), 'dinner')]"));
+							WebElement recipeCategory = driver.findElement(By.xpath("//div[@id='recipe_tags']"));
+							String recipeCategoryText = recipeCategory.getText().toLowerCase();
+
 							System.out.print("Recipe Category: " + recipeCategory.getText());
-							writeOutput.setCellData("LCHFFood_Processing", rowCounter, 2, recipeCategory.getText());
+
+							if (recipeCategoryText.equalsIgnoreCase("breakfast")
+									|| recipeCategoryText.contains("breakfast")) {
+								writeOutput.setCellData("LCHFFoodSteamed", rowCounter, 2,
+										recipeCategory.getText().replace("Tags", " "));
+							} else if (recipeCategoryText.equalsIgnoreCase("lunch")
+									|| recipeCategoryText.contains("lunch")) {
+								writeOutput.setCellData("LCHFFoodSteamed", rowCounter, 2,
+										recipeCategory.getText().replace("Tags", " "));
+							} else if (recipeCategoryText.equalsIgnoreCase("snack")
+									|| recipeCategoryText.contains("snack")) {
+								writeOutput.setCellData("LCHFFoodSteamed", rowCounter, 2,
+										recipeCategory.getText().replace("Tags", " "));
+							} else if (recipeCategoryText.equalsIgnoreCase("dinner")
+									|| recipeCategoryText.contains("dinner")) {
+								writeOutput.setCellData("LCHFFoodSteamed", rowCounter, 2,
+										recipeCategory.getText().replace("Tags", " "));
+							}
+
 						} catch (Exception e) {
 							e.printStackTrace();
 						}
 
-						// Food Category
+//				
 						try {
-							WebElement foodCategory = driver.findElement(By.xpath("//a/span[text()='No Cooking Veg Indian']"));
+							// WebElement foodCategory =
+							// driver.findElement(By.xpath("//div[@id='recipe_tags']"));
+							WebElement foodCategory = driver
+									.findElement(By.xpath("//a[@itemprop='recipeCategory']"));
+
+							String foodCategoryText = foodCategory.getText().toLowerCase();
+
 							System.out.print("Food Category: " + foodCategory.getText());
-							writeOutput.setCellData("LCHFFood_Processing", rowCounter, 3, foodCategory.getText());
+
+							if (foodCategoryText.equalsIgnoreCase("Vegan") || foodCategoryText.contains("Vegan")) {
+								writeOutput.setCellData("LCHFFoodSteamed", rowCounter, 3,
+										foodCategory.getText().replace("Tags", " "));
+							} else if (foodCategoryText.equalsIgnoreCase("Vegeterian")
+									|| foodCategoryText.contains("Vegeterian")) {
+								writeOutput.setCellData("LCHFFoodSteamed", rowCounter, 3,
+										foodCategory.getText().replace("Tags", " "));
+							} else if (foodCategoryText.equalsIgnoreCase("Jain")
+									|| foodCategoryText.contains("Jain")) {
+								writeOutput.setCellData("LCHFFoodSteamed", rowCounter, 3,
+										foodCategory.getText().replace("Tags", " "));
+							} else if (foodCategoryText.equalsIgnoreCase("Eggitarian")
+									|| foodCategoryText.contains("Eggitarian")) {
+								writeOutput.setCellData("LCHFFoodSteamed", rowCounter, 3,
+										foodCategory.getText().replace("Tags", " "));
+							} else if (foodCategoryText.equalsIgnoreCase("Non-veg")
+									|| foodCategoryText.contains("Non-veg")) {
+								writeOutput.setCellData("LCHFFoodSteamed", rowCounter, 3,
+										foodCategory.getText().replace("Tags", " "));
+							}
 						} catch (Exception e) {
 							e.printStackTrace();
 						}
 
-						// Ingredients
 						try {
-							WebElement nameOfIngredients = driver.findElement(By.xpath("//div[@id='rcpinglist']"));
-							System.out.print("Ingredients: " + nameOfIngredients.getText());
-							writeOutput.setCellData("LCHFFood_Processing", rowCounter, 4, nameOfIngredients.getText());
+							WebElement nameOfIngredients = driver.findElement(By.xpath("//div[@id= 'rcpinglist']"));
+							System.out.print(nameOfIngredients.getText());
+							writeOutput.setCellData("LCHFFoodSteamed", rowCounter, 4, nameOfIngredients.getText());
+
 						} catch (Exception e) {
-							e.printStackTrace();
+
 						}
 
-						// Preparation Time
 						try {
-							WebElement preparationTime = driver.findElement(By.xpath("//p/time[@itemprop='prepTime']"));
-							System.out.print("Preparation Time: " + preparationTime.getText());
-							writeOutput.setCellData("LCHFFood_Processing", rowCounter, 5, preparationTime.getText());
+							WebElement preparationTime = driver
+									.findElement(By.xpath("//p/time[@itemprop= 'prepTime']"));
+							System.out.print(preparationTime.getText());
+							writeOutput.setCellData("LCHFFoodSteamed", rowCounter, 5, preparationTime.getText());
+
 						} catch (Exception e) {
-							e.printStackTrace();
+
 						}
 
-						// Cook Time
 						try {
-							WebElement cookTime = driver.findElement(By.xpath("//p/time[@itemprop='cookTime']"));
-							System.out.print("Cook Time: " + cookTime.getText());
-							writeOutput.setCellData("LCHFFood_Processing", rowCounter, 6, cookTime.getText());
+							WebElement cookTime = driver.findElement(By.xpath("//p/time[@itemprop= 'cookTime']"));
+							System.out.print(cookTime.getText());
+							writeOutput.setCellData("LCHFFoodSteamed", rowCounter, 6, cookTime.getText());
+
 						} catch (Exception e) {
-							e.printStackTrace();
+
 						}
 
-						// Preparation Method
 						try {
-							WebElement prepMethod = driver.findElement(By.xpath("//div[@id='ctl00_cntrightpanel_pnlRcpMethod']"));
-							System.out.print("Preparation Method: " + prepMethod.getText());
-							writeOutput.setCellData("LCHFFood_Processing", rowCounter, 7, prepMethod.getText());
+							WebElement tags = driver.findElement(By.xpath("//div[@id='recipe_tags']"));
+							System.out.print(tags.getText());
+							writeOutput.setCellData("LCHFFoodSteamed", rowCounter, 7, tags.getText().replace("Tags", " "));
+
 						} catch (Exception e) {
-							e.printStackTrace();
+
 						}
 
-						// Nutrients
 						try {
-							WebElement nutrients = driver.findElement(By.xpath("//table[@id='rcpnutrients']"));
-							System.out.print("Nutrients: " + nutrients.getText());
-							writeOutput.setCellData("LCHFFood_Processing", rowCounter, 8, nutrients.getText());
+							WebElement No_of_servings = driver
+									.findElement(By.xpath("//span[@id='ctl00_cntrightpanel_lblServes']"));
+							System.out.print(No_of_servings.getText());
+							writeOutput.setCellData("LCHFFoodSteamed", rowCounter, 8, No_of_servings.getText());
+
 						} catch (Exception e) {
-							e.printStackTrace();
+
 						}
 
-						// Recipe URL
 						try {
-							System.out.print("Recipe URL: " + recipeUrl);
-							writeOutput.setCellData("LCHFFood_Processing", rowCounter, 9, recipeUrl);
+							WebElement cuisineCategory = driver
+									.findElement(By.xpath("//a[@itemprop='recipeCuisine' ]"));
+							System.out.print(cuisineCategory.getText());
+							writeOutput.setCellData("LCHFFoodSteamed", rowCounter, 9, cuisineCategory.getText());
+
 						} catch (Exception e) {
-							e.printStackTrace();
+
+						}
+
+						try {
+							WebElement recipeDescription = driver
+									.findElement(By.xpath("//p[@id='recipe_description']"));
+							System.out.print(recipeDescription.getText());
+							writeOutput.setCellData("LCHFFoodSteamed", rowCounter, 10, recipeDescription.getText());
+
+						} catch (Exception e) {
+
+						}
+
+						try {
+							WebElement prepMethod = driver
+									.findElement(By.xpath("//div[@id= 'ctl00_cntrightpanel_pnlRcpMethod']"));
+							System.out.print(prepMethod.getText());
+							writeOutput.setCellData("LCHFFoodSteamed", rowCounter, 11, prepMethod.getText());
+
+						} catch (Exception e) {
+
+						}
+						try {
+							WebElement nutrients = driver.findElement(By.xpath("//table[@id= 'rcpnutrients']"));
+							System.out.print(nutrients.getText());
+							writeOutput.setCellData("LCHFFoodSteamed", rowCounter, 12, nutrients.getText());
+
+						} catch (Exception e) {
+
+						}
+						try {
+							System.out.print(recipeUrl);
+							writeOutput.setCellData("LCHFFoodSteamed", rowCounter, 13, recipeUrl);
+						} catch (Exception e) {
+
 						}
 
 						rowCounter++;
+
 					}
 				} catch (Exception e) {
+					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
 			}
+
 		}
 	}
-
+}
 	private static boolean isAdded(List<String> add) {
 		AtomicBoolean isTagPresent = new AtomicBoolean(false);
 		add.parallelStream().forEach(addTag -> {
@@ -197,10 +283,9 @@ public class LCHFFood_Processing_Steamed {
 		return isTagPresent.get();
 	}
 
-
 	public static void main(String[] args) throws InterruptedException {
 		setUpDriver();
 		extractRecipe();
 		tearDown();
-	}	
+	}
 }
