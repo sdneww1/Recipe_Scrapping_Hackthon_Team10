@@ -18,7 +18,9 @@ import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeTest;
 
 
+
 import reciepescrapping_team10_utility.ExcelWriter;
+
 
 
 public class LFVOptional_recipes  {
@@ -103,28 +105,58 @@ public class LFVOptional_recipes  {
 
 							}
 							try {
-								WebElement recipeCategory = driver.findElement(By.xpath(
-										"//span[@itemprop= 'description']/*[contains (text(), 'breakfast') or contains (text(), 'lunch') or contains (text(), 'dinner')]"));
-								System.out.print(recipeCategory.getText());
-								writeOutput.setCellData("LFVOptionalRecipe", rowCounter, 2, recipeCategory.getText());
+							    WebElement recipeCategory = driver.findElement(By.xpath("//div[@id='recipe_tags']"));
+							    String recipeCategoryText = recipeCategory.getText().toLowerCase();
+
+							    System.out.print("Recipe Category: " + recipeCategory.getText());
+
+							    if (recipeCategoryText.equalsIgnoreCase("breakfast") || recipeCategoryText.contains("breakfast")) {
+							        writeOutput.setCellData("LFVOptionalRecipe", rowCounter, 2, recipeCategory.getText().replace("Tags", " "));
+							    } else if (recipeCategoryText.equalsIgnoreCase("lunch") || recipeCategoryText.contains("lunch")) {
+							        writeOutput.setCellData("LFVOptionalRecipe", rowCounter, 2, recipeCategory.getText().replace("Tags", " "));
+							    } else if (recipeCategoryText.equalsIgnoreCase("snack") || recipeCategoryText.contains("snack")) {
+							        writeOutput.setCellData("LFVOptionalRecipe", rowCounter, 2, recipeCategory.getText().replace("Tags", " "));
+							    } else if (recipeCategoryText.equalsIgnoreCase("dinner") || recipeCategoryText.contains("dinner")) {
+							        writeOutput.setCellData("LFVOptionalRecipe", rowCounter, 2, recipeCategory.getText().replace("Tags", " "));
+							    }
 
 							} catch (Exception e) {
-
+							    e.printStackTrace();
 							}
-							try {
-								WebElement foodCategory = driver
-										.findElement(By.xpath("//a/span[text()= 'No Cooking Veg Indian']"));
-								System.out.print(foodCategory.getText());
-								writeOutput.setCellData("LFVOptionalRecipe", rowCounter, 3, foodCategory.getText());
+							
 
+							
+							try {
+							   // WebElement foodCategory = driver.findElement(By.xpath("//div[@id='recipe_tags']"));
+								 WebElement foodCategory = driver.findElement(By.xpath("//a[@itemprop='recipeCategory']"));
+								
+							    
+							    String foodCategoryText = foodCategory.getText().toLowerCase();
+
+							    System.out.print("Food Category: " + foodCategory.getText());
+
+							    if (foodCategoryText.equalsIgnoreCase("Vegan") || foodCategoryText.contains("Vegan")) {
+							        writeOutput.setCellData("LFVOptionalRecipe", rowCounter, 3, foodCategory.getText().replace("Tags", " "));
+							    } else if (foodCategoryText.equalsIgnoreCase("Vegeterian") || foodCategoryText.contains("Vegeterian")) {
+							        writeOutput.setCellData("LFVOptionalRecipe", rowCounter, 3, foodCategory.getText().replace("Tags", " "));
+							    } else if (foodCategoryText.equalsIgnoreCase("Jain") || foodCategoryText.contains("Jain")) {
+							        writeOutput.setCellData("LFVOptionalRecipe", rowCounter, 3, foodCategory.getText().replace("Tags", " "));
+							    } else if (foodCategoryText.equalsIgnoreCase("Eggitarian") || foodCategoryText.contains("Eggitarian")) {
+							        writeOutput.setCellData("LFVOptionalRecipe", rowCounter, 3, foodCategory.getText().replace("Tags", " "));
+							    }
+							    else if (foodCategoryText.equalsIgnoreCase("Non-veg") || foodCategoryText.contains("Non-veg")) {
+							        writeOutput.setCellData("LFVOptionalRecipe", rowCounter, 3, foodCategory.getText().replace("Tags", " "));
+							    }	
 							} catch (Exception e) {
-
+							    e.printStackTrace();
 							}
 
 							try {
-								WebElement nameOfIngredients = driver.findElement(By.xpath("//div[@id= 'rcpinglist']"));
+								WebElement nameOfIngredients = driver
+										.findElement(By.xpath("//div[@id= 'rcpinglist']"));
 								System.out.print(nameOfIngredients.getText());
-								writeOutput.setCellData("LFVOptionalRecipe", rowCounter, 4, nameOfIngredients.getText());
+								writeOutput.setCellData("LFVOptionalRecipe", rowCounter, 4,
+										nameOfIngredients.getText());
 
 							} catch (Exception e) {
 
@@ -134,14 +166,16 @@ public class LFVOptional_recipes  {
 								WebElement preparationTime = driver
 										.findElement(By.xpath("//p/time[@itemprop= 'prepTime']"));
 								System.out.print(preparationTime.getText());
-								writeOutput.setCellData("LFVOptionalRecipe", rowCounter, 5, preparationTime.getText());
+								writeOutput.setCellData("LFVOptionalRecipe", rowCounter, 5,
+										preparationTime.getText());
 
 							} catch (Exception e) {
 
 							}
 
 							try {
-								WebElement cookTime = driver.findElement(By.xpath("//p/time[@itemprop= 'cookTime']"));
+								WebElement cookTime = driver
+										.findElement(By.xpath("//p/time[@itemprop= 'cookTime']"));
 								System.out.print(cookTime.getText());
 								writeOutput.setCellData("LFVOptionalRecipe", rowCounter, 6, cookTime.getText());
 
@@ -150,25 +184,73 @@ public class LFVOptional_recipes  {
 							}
 
 							try {
-								WebElement prepMethod = driver
-										.findElement(By.xpath("//div[@id= 'ctl00_cntrightpanel_pnlRcpMethod']"));
+								WebElement tags = driver.findElement(By.xpath("//div[@id='recipe_tags']"));
+								System.out.print(tags.getText());
+								writeOutput.setCellData("LFVOptionalRecipe", rowCounter, 7, tags.getText());
+
+							} catch (Exception e) {
+
+							}
+							
+							
+							try {
+								WebElement No_of_servings = driver.findElement(By.xpath("//span[@id='ctl00_cntrightpanel_lblServes']"));
+								System.out.print(No_of_servings.getText());
+								writeOutput.setCellData("LFVOptionalRecipe", rowCounter, 8, No_of_servings.getText());
+
+							} catch (Exception e) {
+
+							}
+							
+							
+							
+							
+							
+							try {
+								WebElement cuisineCategory = driver.findElement(By.xpath("//a[@itemprop='recipeCuisine' ]"));
+								System.out.print(cuisineCategory.getText());
+								writeOutput.setCellData("LFVOptionalRecipe", rowCounter, 9, cuisineCategory.getText());
+
+							} catch (Exception e) {
+
+							}
+							
+							
+							
+							try {
+								WebElement recipeDescription = driver.findElement(By.xpath("//p[@id='recipe_description']"));
+								System.out.print(recipeDescription.getText());
+								writeOutput.setCellData("LFVOptionalRecipe", rowCounter, 10, recipeDescription.getText());
+
+							} catch (Exception e) {
+
+							}
+							
+							
+
+							try {
+								WebElement prepMethod = driver.findElement(
+										By.xpath("//div[@id= 'ctl00_cntrightpanel_pnlRcpMethod']"));
 								System.out.print(prepMethod.getText());
-								writeOutput.setCellData("LFVOptionalRecipe", rowCounter, 7, prepMethod.getText());
+								writeOutput.setCellData("LFVOptionalRecipe", rowCounter, 11,
+										prepMethod.getText());
 
 							} catch (Exception e) {
 
 							}
 							try {
-								WebElement nutrients = driver.findElement(By.xpath("//table[@id= 'rcpnutrients']"));
+								WebElement nutrients = driver
+										.findElement(By.xpath("//table[@id= 'rcpnutrients']"));
 								System.out.print(nutrients.getText());
-								writeOutput.setCellData("LFVOptionalRecipe", rowCounter, 8, nutrients.getText());
+								writeOutput.setCellData("LFVOptionalRecipe", rowCounter, 12,
+										nutrients.getText());
 
 							} catch (Exception e) {
 
 							}
 							try {
 								System.out.print(recipeUrl);
-								writeOutput.setCellData("LFVOptionalRecipe", rowCounter, 9, recipeUrl);
+								writeOutput.setCellData("LFVOptionalRecipe", rowCounter, 13, recipeUrl);
 							} catch (Exception e) {
 
 							}
@@ -189,6 +271,7 @@ public class LFVOptional_recipes  {
 		}
 
 	}
+
 
 	private static boolean toExclude(List<String> eliminators) {
 		AtomicBoolean isEliminatorPresent = new AtomicBoolean(false);
