@@ -2,7 +2,6 @@ package reciepescrapping_team10;
 
 import java.time.Duration;
 
-
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -18,11 +17,13 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeTest;
 
-
 import reciepescrapping_team10_utility.ExcelWriter;
 
 
-public class LFVDEliminator {
+
+
+public class LFVIf_not_fully_vegan {
+	
 	
 	public static WebDriver driver;
 
@@ -42,14 +43,8 @@ public class LFVDEliminator {
 
 	public static void extractRecipe() throws InterruptedException {
 		
-		List<String> eliminators = Arrays.asList(new String[] {
-				"pork","Meat","Poultry","Fish","Sausage","ham","salami","bacon","milk","cheese","yogurt","butter","Ice cream","egg","prawn",
-				"Oil","olive oil","coconut oil","soybean oil","corn oil","safflower oil","sunflower oil","rapeseed oil","peanut oil",
-				"cottonseed oil","canola oil","mustard oil","cereals","tinned vegetable","bread","maida","atta","sooji","poha","cornflake",
-				"cornflour","pasta","White rice","pastry","cakes","biscuit","soy","soy milk","white miso paste","soy sauce","soy curls",
-				"edamame","soy yogurt","soy nut","tofu","pies","Chip","cracker","potatoe","sugar","jaggery","glucose","fructose",
-				"corn syrup","cane sugar","aspartame","cane solid","maltose","dextrose","sorbitol","mannitol","xylitol","maltodextrin",
-				"molasses","brown rice syrup","splenda","nutra sweet","stevia","barley malt"});
+		List<String> LFVIfnotFullyVegan = Arrays.asList(new String[] {
+				"Butter","ghee","salmon","mackeral","sardines"});
 		
 		        driver.findElement(By.xpath("//div/a[text()= 'Recipe A To Z']")).click();
 		        
@@ -99,14 +94,12 @@ public class LFVDEliminator {
 
 								try {
 									try {
-										if (isEliminated(eliminators)) 
+										if ((isAdded(LFVIfnotFullyVegan))) 
 										{
-											// driver.navigate().to("//div/a[text()= 'Recipe A To Z']");
-										} else {
 											ExcelWriter writeOutput = new ExcelWriter();
 											// Recipe id
 											try {
-												writeOutput.setCellData("LFVDEliminator", rowCounter, 0, recipeId);
+												writeOutput.setCellData("LFVInotFullyvegan", rowCounter, 0, recipeId);
 											} catch (Exception e) {
 
 											}
@@ -116,7 +109,7 @@ public class LFVDEliminator {
 												WebElement recipeTitle = driver
 														.findElement(By.xpath("//span[@id= 'ctl00_cntrightpanel_lblRecipeName']"));
 												System.out.print(recipeTitle.getText());
-												writeOutput.setCellData("LFVDEliminator", rowCounter, 1, recipeTitle.getText());
+												writeOutput.setCellData("LFVInotFullyvegan", rowCounter, 1, recipeTitle.getText());
 
 											} catch (Exception e) {
 
@@ -128,29 +121,20 @@ public class LFVDEliminator {
 											    System.out.print("Recipe Category: " + recipeCategory.getText());
 
 											    if (recipeCategoryText.equalsIgnoreCase("breakfast") || recipeCategoryText.contains("breakfast")) {
-											        writeOutput.setCellData("LFVDEliminator", rowCounter, 2, recipeCategory.getText().replace("Tags", " "));
+											        writeOutput.setCellData("LFVIf_not_fully_vegan", rowCounter, 2, recipeCategory.getText().replace("Tags", " "));
 											    } else if (recipeCategoryText.equalsIgnoreCase("lunch") || recipeCategoryText.contains("lunch")) {
-											        writeOutput.setCellData("LFVDEliminator", rowCounter, 2, recipeCategory.getText().replace("Tags", " "));
+											        writeOutput.setCellData("LFVIf_not_fully_vegan", rowCounter, 2, recipeCategory.getText().replace("Tags", " "));
 											    } else if (recipeCategoryText.equalsIgnoreCase("snack") || recipeCategoryText.contains("snack")) {
-											        writeOutput.setCellData("LFVDEliminator", rowCounter, 2, recipeCategory.getText().replace("Tags", " "));
+											        writeOutput.setCellData("LFVIf_not_fully_vegan", rowCounter, 2, recipeCategory.getText().replace("Tags", " "));
 											    } else if (recipeCategoryText.equalsIgnoreCase("dinner") || recipeCategoryText.contains("dinner")) {
-											        writeOutput.setCellData("LFVDEliminator", rowCounter, 2, recipeCategory.getText().replace("Tags", " "));
+											        writeOutput.setCellData("LFVIf_not_fully_vegan", rowCounter, 2, recipeCategory.getText().replace("Tags", " "));
 											    }
 
 											} catch (Exception e) {
 											    e.printStackTrace();
 											}
 											
-//											try {
-//												WebElement foodCategory = driver
-//														.findElement(By.xpath("//a/span[text()= 'No Cooking Veg Indian']"));
-//												System.out.print(foodCategory.getText());
-//												writeOutput.setCellData("LFVRecipes_To_Avoid", rowCounter, 6,
-//														foodCategory.getText());
-		//
-//											} catch (Exception e) {
-		//
-//											}
+										
 											
 											try {
 											   // WebElement foodCategory = driver.findElement(By.xpath("//div[@id='recipe_tags']"));
@@ -162,16 +146,16 @@ public class LFVDEliminator {
 											    System.out.print("Food Category: " + foodCategory.getText());
 
 											    if (foodCategoryText.equalsIgnoreCase("Vegan") || foodCategoryText.contains("Vegan")) {
-											        writeOutput.setCellData("LFVDEliminator", rowCounter, 3, foodCategory.getText().replace("Tags", " "));
+											        writeOutput.setCellData("LFVIf_not_fully_vegan", rowCounter, 3, foodCategory.getText().replace("Tags", " "));
 											    } else if (foodCategoryText.equalsIgnoreCase("Vegeterian") || foodCategoryText.contains("Vegeterian")) {
-											        writeOutput.setCellData("LFVDEliminator", rowCounter, 3, foodCategory.getText().replace("Tags", " "));
+											        writeOutput.setCellData("LFVIf_not_fully_vegan", rowCounter, 3, foodCategory.getText().replace("Tags", " "));
 											    } else if (foodCategoryText.equalsIgnoreCase("Jain") || foodCategoryText.contains("Jain")) {
-											        writeOutput.setCellData("LFVDEliminator", rowCounter, 3, foodCategory.getText().replace("Tags", " "));
+											        writeOutput.setCellData("LFVIf_not_fully_vegan", rowCounter, 3, foodCategory.getText().replace("Tags", " "));
 											    } else if (foodCategoryText.equalsIgnoreCase("Eggitarian") || foodCategoryText.contains("Eggitarian")) {
-											        writeOutput.setCellData("LFVDEliminator", rowCounter, 3, foodCategory.getText().replace("Tags", " "));
+											        writeOutput.setCellData("LFVIf_not_fully_vegan", rowCounter, 3, foodCategory.getText().replace("Tags", " "));
 											    }
 											    else if (foodCategoryText.equalsIgnoreCase("Non-veg") || foodCategoryText.contains("Non-veg")) {
-											        writeOutput.setCellData("LFVDEliminator", rowCounter, 3, foodCategory.getText().replace("Tags", " "));
+											        writeOutput.setCellData("LFVIf_not_fully_vegan", rowCounter, 3, foodCategory.getText().replace("Tags", " "));
 											    }	
 											} catch (Exception e) {
 											    e.printStackTrace();
@@ -181,7 +165,7 @@ public class LFVDEliminator {
 												WebElement nameOfIngredients = driver
 														.findElement(By.xpath("//div[@id= 'rcpinglist']"));
 												System.out.print(nameOfIngredients.getText());
-												writeOutput.setCellData("LFVDEliminator", rowCounter, 4,
+												writeOutput.setCellData("LFVIf_not_fully_vegan", rowCounter, 4,
 														nameOfIngredients.getText());
 
 											} catch (Exception e) {
@@ -192,7 +176,7 @@ public class LFVDEliminator {
 												WebElement preparationTime = driver
 														.findElement(By.xpath("//p/time[@itemprop= 'prepTime']"));
 												System.out.print(preparationTime.getText());
-												writeOutput.setCellData("LFVDEliminator", rowCounter, 5,
+												writeOutput.setCellData("LFVIf_not_fully_vegan", rowCounter, 5,
 														preparationTime.getText());
 
 											} catch (Exception e) {
@@ -203,7 +187,7 @@ public class LFVDEliminator {
 												WebElement cookTime = driver
 														.findElement(By.xpath("//p/time[@itemprop= 'cookTime']"));
 												System.out.print(cookTime.getText());
-												writeOutput.setCellData("LFVDEliminator", rowCounter, 6, cookTime.getText());
+												writeOutput.setCellData("LFVIf_not_fully_vegan", rowCounter, 6, cookTime.getText());
 
 											} catch (Exception e) {
 
@@ -212,7 +196,7 @@ public class LFVDEliminator {
 											try {
 												WebElement tags = driver.findElement(By.xpath("//div[@id='recipe_tags']"));
 												System.out.print(tags.getText());
-												writeOutput.setCellData("LFVDEliminator", rowCounter, 7, tags.getText());
+												writeOutput.setCellData("LFVIf_not_fully_vegan", rowCounter, 7, tags.getText());
 
 											} catch (Exception e) {
 
@@ -222,7 +206,7 @@ public class LFVDEliminator {
 											try {
 												WebElement No_of_servings = driver.findElement(By.xpath("//span[@id='ctl00_cntrightpanel_lblServes']"));
 												System.out.print(No_of_servings.getText());
-												writeOutput.setCellData("LFVDEliminator", rowCounter, 8, No_of_servings.getText());
+												writeOutput.setCellData("LFVIf_not_fully_vegan", rowCounter, 8, No_of_servings.getText());
 
 											} catch (Exception e) {
 
@@ -235,7 +219,7 @@ public class LFVDEliminator {
 											try {
 												WebElement cuisineCategory = driver.findElement(By.xpath("//a[@itemprop='recipeCuisine' ]"));
 												System.out.print(cuisineCategory.getText());
-												writeOutput.setCellData("LFVDEliminator", rowCounter, 9, cuisineCategory.getText());
+												writeOutput.setCellData("LFVIf_not_fully_vegan", rowCounter, 9, cuisineCategory.getText());
 
 											} catch (Exception e) {
 
@@ -246,7 +230,7 @@ public class LFVDEliminator {
 											try {
 												WebElement recipeDescription = driver.findElement(By.xpath("//p[@id='recipe_description']"));
 												System.out.print(recipeDescription.getText());
-												writeOutput.setCellData("LFVDEliminator", rowCounter, 10, recipeDescription.getText());
+												writeOutput.setCellData("LFVIf_not_fully_vegan", rowCounter, 10, recipeDescription.getText());
 
 											} catch (Exception e) {
 
@@ -258,7 +242,7 @@ public class LFVDEliminator {
 												WebElement prepMethod = driver.findElement(
 														By.xpath("//div[@id= 'ctl00_cntrightpanel_pnlRcpMethod']"));
 												System.out.print(prepMethod.getText());
-												writeOutput.setCellData("LFVDEliminator", rowCounter, 11,
+												writeOutput.setCellData("LFVIf_not_fully_vegan", rowCounter, 11,
 														prepMethod.getText());
 
 											} catch (Exception e) {
@@ -268,7 +252,7 @@ public class LFVDEliminator {
 												WebElement nutrients = driver
 														.findElement(By.xpath("//table[@id= 'rcpnutrients']"));
 												System.out.print(nutrients.getText());
-												writeOutput.setCellData("LFVDEliminator", rowCounter, 12,
+												writeOutput.setCellData("LFVIf_not_fully_vegan", rowCounter, 12,
 														nutrients.getText());
 
 											} catch (Exception e) {
@@ -276,7 +260,7 @@ public class LFVDEliminator {
 											}
 											try {
 												System.out.print(recipeUrl);
-												writeOutput.setCellData("LFVDEliminator", rowCounter, 13, recipeUrl);
+												writeOutput.setCellData("LFVIf_not_fully_vegan", rowCounter, 13, recipeUrl);
 											} catch (Exception e) {
 
 											}
@@ -299,54 +283,42 @@ public class LFVDEliminator {
 					}
 				}
 			}
-			private static boolean isEliminated(List<String> eliminators) {
-				AtomicBoolean isEliminatorPresent = new AtomicBoolean(false);
+	
+	private static boolean isAdded(List<String> add) {
+		 AtomicBoolean isAddPresent = new AtomicBoolean(false);
+		    add.parallelStream().forEach(addItem -> {
+		        try {
+		            WebElement ingredientWebElement = driver.findElement(By.xpath("//div[@id='rcpinglist']"));
+		            String ingredients = ingredientWebElement.getText();
+		            if (ingredients.toLowerCase().contains(addItem.toLowerCase())) {
+		                isAddPresent.set(true);
+		            }
+		        } catch (Exception e) {
+		            System.out.print("No Such Element: " + e.getLocalizedMessage());
+		        }
 
-				eliminators.parallelStream().forEach(eliminator -> {
-					try {
-						WebElement ingredientWebElement = driver.findElement(By.xpath("//div[@id= 'rcpinglist']"));
-						String ingredients = ingredientWebElement.getText();
-						if (null != ingredients && null != eliminator
-								&& ingredients.toLowerCase().contains(eliminator.toLowerCase())) {
-							isEliminatorPresent.set(true);
-						}
-					} catch (Exception e) {
-						System.out.print("No Such Element " + e.getLocalizedMessage());
-					}
-					try {
-
-						WebElement methodWebElement = driver.findElement(By.xpath("//div[@id='recipe_small_steps']"));
-						String method = methodWebElement.getText();
-						if (null != method && null != eliminator && method.toLowerCase().contains(eliminator.toLowerCase())) {
-							isEliminatorPresent.set(true);
-						}
-					} catch (Exception e) {
-						System.out.print("No Such Element " + e.getLocalizedMessage());
-					}
-				});
-				return isEliminatorPresent.get();
-			}
+		        try {
+		            WebElement methodWebElement = driver.findElement(By.xpath("//div[@id='recipe_small_steps']"));
+		            String method = methodWebElement.getText();
+		            if (method.toLowerCase().contains(addItem.toLowerCase())) {
+		                isAddPresent.set(true);
+		            }
+		        } catch (Exception e) {
+		            System.out.print("No Such Element: " + e.getLocalizedMessage());
+		        }
+		    });
+		    return isAddPresent.get();
+		}
 
 
 public static void main(String[] args) throws InterruptedException  {
-	
-	setUpDriver();
-	extractRecipe();
-		
+
+setUpDriver();
+extractRecipe();
+
 }	
 
 }
-	
-		
-		
-		
 
-		
-		
-						
-		
-		
-						
-	
-	
 
+			
