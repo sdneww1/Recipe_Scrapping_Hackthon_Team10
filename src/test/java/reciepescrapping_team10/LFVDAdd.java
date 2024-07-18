@@ -65,7 +65,7 @@ public class LFVDAdd {
 	}
 
 	private static void saveRecipeToDatabase(InputVO inputvo) {
-		String insertSQL = "INSERT INTO allergy(recipe_id, recipe_name, recipe_category, food_category, ingredients, preparation_time, cooking_time, tag, no_of_servings, cuisine_category, recipe_description, preparation_method, nutrient_values, recipe_url) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+		String insertSQL = "INSERT INTO lfv_add(recipe_id, recipe_name, recipe_category, food_category, ingredients, preparation_time, cooking_time, tag, no_of_servings, cuisine_category, recipe_description, preparation_method, nutrient_values, recipe_url) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
 		try (PreparedStatement preparedStatement = connection.prepareStatement(insertSQL)) {
 			preparedStatement.setString(1, inputvo.getRecipeId());
 			System.out.println("recipeId" + inputvo.getRecipeId());
@@ -122,7 +122,7 @@ public class LFVDAdd {
 			}
 			if (0 != lastPage) {
 				for (int j = 1; j <= 2; j++) {
-					
+
 					driver.navigate().to("https://www.tarladalal.com/RecipeAtoZ.aspx?beginswith="
 							+ pageBeginsWithList.get(k) + "&pageindex=" + j);
 					List<WebElement> recipeCardElements = driver
@@ -204,7 +204,7 @@ public class LFVDAdd {
 										e.printStackTrace();
 									}
 
-//											
+									//
 									try {
 										// WebElement foodCategory =
 										// driver.findElement(By.xpath("//div[@id='recipe_tags']"));

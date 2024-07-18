@@ -12,7 +12,6 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicBoolean;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -24,11 +23,11 @@ import org.testng.annotations.BeforeTest;
 
 import reciepescrapping_team10_utility.ExcelWriter;
 
-
 public class LCHFFood_Processing_panfried {
 
-    public static WebDriver driver;
+	public static WebDriver driver;
 	private static Connection connection;
+
 	@BeforeTest
 	public static void setUpDriver() {
 		driver = new ChromeDriver();
@@ -44,7 +43,7 @@ public class LCHFFood_Processing_panfried {
 			String user = "postgres";
 			String password = "Apeksha@24";
 			connection = DriverManager.getConnection(url, user, password);
-			System.out.println("connection  "+connection );
+			System.out.println("connection  " + connection);
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -63,29 +62,31 @@ public class LCHFFood_Processing_panfried {
 			e.printStackTrace();
 		}
 	}
+
 	private static void saveRecipeToDatabase(InputVO inputvo) {
-        String insertSQL = "INSERT INTO allergy(recipe_id, recipe_name, recipe_category, food_category, ingredients, preparation_time, cooking_time, tag, no_of_servings, cuisine_category, recipe_description, preparation_method, nutrient_values, recipe_url) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
-        try (PreparedStatement preparedStatement = connection.prepareStatement(insertSQL)) {
-            preparedStatement.setString(1, inputvo.getRecipeId());
-            System.out.println("recipeId" + inputvo.getRecipeId());
-            preparedStatement.setString(2, inputvo.getRecipeName());
-            preparedStatement.setString(3, inputvo.getRecipeCategory());
-            preparedStatement.setString(4, inputvo.getFoodCategory());
-            preparedStatement.setString(5, inputvo.getNameOfIngredients());
-            preparedStatement.setString(6, inputvo.getPreparationTime());
-            preparedStatement.setString(7, inputvo.getCookTime());
-            preparedStatement.setString(8, inputvo.getTags());
-            preparedStatement.setString(9, inputvo.getNo_of_servings());
-            preparedStatement.setString(10, inputvo.getCuisineCategory());
-            preparedStatement.setString(11, inputvo.getRecipeDescription());
-            preparedStatement.setString(12, inputvo.getPrepMethod());
-            preparedStatement.setString(13, inputvo.getNutrients());
-            preparedStatement.setString(14, inputvo.getRecipeUrl());
-            preparedStatement.executeUpdate();
-        } catch (SQLException e) {
-            e.printStackTrace() ;
-            }
-    }
+		String insertSQL = "INSERT INTO lchfpanfried(recipe_id, recipe_name, recipe_category, food_category, ingredients, preparation_time, cooking_time, tag, no_of_servings, cuisine_category, recipe_description, preparation_method, nutrient_values, recipe_url) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+		try (PreparedStatement preparedStatement = connection.prepareStatement(insertSQL)) {
+			preparedStatement.setString(1, inputvo.getRecipeId());
+			System.out.println("recipeId" + inputvo.getRecipeId());
+			preparedStatement.setString(2, inputvo.getRecipeName());
+			preparedStatement.setString(3, inputvo.getRecipeCategory());
+			preparedStatement.setString(4, inputvo.getFoodCategory());
+			preparedStatement.setString(5, inputvo.getNameOfIngredients());
+			preparedStatement.setString(6, inputvo.getPreparationTime());
+			preparedStatement.setString(7, inputvo.getCookTime());
+			preparedStatement.setString(8, inputvo.getTags());
+			preparedStatement.setString(9, inputvo.getNo_of_servings());
+			preparedStatement.setString(10, inputvo.getCuisineCategory());
+			preparedStatement.setString(11, inputvo.getRecipeDescription());
+			preparedStatement.setString(12, inputvo.getPrepMethod());
+			preparedStatement.setString(13, inputvo.getNutrients());
+			preparedStatement.setString(14, inputvo.getRecipeUrl());
+			preparedStatement.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+
 	public static void extractRecipe() throws InterruptedException {
 
 		List<String> add = Arrays.asList(new String[] { "Stir-fry" });
@@ -124,13 +125,11 @@ public class LCHFFood_Processing_panfried {
 						if ((isAdded(add))) {
 							ExcelWriter writeOutput = new ExcelWriter();
 
-							
-
 							// Recipe id
 							try {
 								writeOutput.setCellData("LCHFFoodPanFried", rowCounter, 0, recipeId);
 							} catch (Exception e) {
-								
+
 							}
 
 							// Recipe Name
@@ -141,7 +140,7 @@ public class LCHFFood_Processing_panfried {
 								writeOutput.setCellData("LCHFFoodPanFried", rowCounter, 1, recipeTitle.getText());
 								dbInputVO.setRecipeName(recipeTitle.getText());
 							} catch (Exception e) {
-								
+
 							}
 
 							try {
@@ -176,7 +175,7 @@ public class LCHFFood_Processing_panfried {
 								e.printStackTrace();
 							}
 
-//						
+							//
 
 							try {
 								// WebElement foodCategory =
@@ -248,7 +247,8 @@ public class LCHFFood_Processing_panfried {
 							try {
 								WebElement tags = driver.findElement(By.xpath("//div[@id='recipe_tags']"));
 								System.out.print(tags.getText());
-								writeOutput.setCellData("LCHFFoodPanFried", rowCounter, 7, tags.getText().replace("Tags", " "));
+								writeOutput.setCellData("LCHFFoodPanFried", rowCounter, 7,
+										tags.getText().replace("Tags", " "));
 								dbInputVO.setTags(tags.getText().replace("Tags", ""));
 							} catch (Exception e) {
 
@@ -278,7 +278,8 @@ public class LCHFFood_Processing_panfried {
 								WebElement recipeDescription = driver
 										.findElement(By.xpath("//p[@id='recipe_description']"));
 								System.out.print(recipeDescription.getText());
-								writeOutput.setCellData("LCHFFoodPanFried", rowCounter, 10, recipeDescription.getText());
+								writeOutput.setCellData("LCHFFoodPanFried", rowCounter, 10,
+										recipeDescription.getText());
 								dbInputVO.setRecipeDescription(recipeDescription.getText());
 							} catch (Exception e) {
 
@@ -306,7 +307,8 @@ public class LCHFFood_Processing_panfried {
 								writeOutput.setCellData("LCHFFoodPanFried", rowCounter, 13, recipeUrl);
 							} catch (Exception e) {
 
-							}System.out.println("dbInputVO "+dbInputVO.toString());
+							}
+							System.out.println("dbInputVO " + dbInputVO.toString());
 							saveRecipeToDatabase(dbInputVO);
 
 							rowCounter++;
@@ -325,8 +327,6 @@ public class LCHFFood_Processing_panfried {
 		}
 
 	}
-
-
 
 	private static boolean isAdded(List<String> add) {
 		AtomicBoolean isTagPresent = new AtomicBoolean(false);

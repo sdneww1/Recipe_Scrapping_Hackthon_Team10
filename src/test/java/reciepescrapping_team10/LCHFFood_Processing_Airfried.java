@@ -12,7 +12,6 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicBoolean;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -63,7 +62,7 @@ public class LCHFFood_Processing_Airfried {
 		}
 	}
 	private static void saveRecipeToDatabase(InputVO inputvo) {
-        String insertSQL = "INSERT INTO allergy(recipe_id, recipe_name, recipe_category, food_category, ingredients, preparation_time, cooking_time, tag, no_of_servings, cuisine_category, recipe_description, preparation_method, nutrient_values, recipe_url) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+        String insertSQL = "INSERT INTO lchfairfried(recipe_id, recipe_name, recipe_category, food_category, ingredients, preparation_time, cooking_time, tag, no_of_servings, cuisine_category, recipe_description, preparation_method, nutrient_values, recipe_url) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
         try (PreparedStatement preparedStatement = connection.prepareStatement(insertSQL)) {
             preparedStatement.setString(1, inputvo.getRecipeId());
             System.out.println("recipeId" + inputvo.getRecipeId());

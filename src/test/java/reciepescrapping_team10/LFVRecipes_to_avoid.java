@@ -65,7 +65,7 @@ public class LFVRecipes_to_avoid {
 	}
 
 	private static void saveRecipeToDatabase(InputVO inputvo) {
-		String insertSQL = "INSERT INTO allergy(recipe_id, recipe_name, recipe_category, food_category, ingredients, preparation_time, cooking_time, tag, no_of_servings, cuisine_category, recipe_description, preparation_method, nutrient_values, recipe_url) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+		String insertSQL = "INSERT INTO lowfatveganrecipestoavoid(recipe_id, recipe_name, recipe_category, food_category, ingredients, preparation_time, cooking_time, tag, no_of_servings, cuisine_category, recipe_description, preparation_method, nutrient_values, recipe_url) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
 		try (PreparedStatement preparedStatement = connection.prepareStatement(insertSQL)) {
 			preparedStatement.setString(1, inputvo.getRecipeId());
 			System.out.println("recipeId" + inputvo.getRecipeId());
@@ -165,7 +165,7 @@ public class LFVRecipes_to_avoid {
 									} catch (Exception e) {
 
 									}
-//									
+									//
 
 									try {
 										WebElement recipeCategory = driver
@@ -200,7 +200,7 @@ public class LFVRecipes_to_avoid {
 										e.printStackTrace();
 									}
 
-//									
+									//
 
 									try {
 										// WebElement foodCategory =
