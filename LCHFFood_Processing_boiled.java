@@ -1,5 +1,5 @@
 
-package reciepescrapping_team10;
+package LowCarbohydrateHighFatDiet;
 
 import java.time.Duration;
 
@@ -17,10 +17,9 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeTest;
 
-import reciepescrapping_team10_utility.ExcelWriter;
+import utilities.WriteExcel;
 
-
-public class LCHFFood_Processing_panfried {
+public class LCHFFood_Processing_boiled {
 
 	public static WebDriver driver;
 
@@ -39,7 +38,7 @@ public class LCHFFood_Processing_panfried {
 
 	public static void extractRecipe() throws InterruptedException {
 
-		List<String> add = Arrays.asList(new String[] { "Stir-fry" });
+		List<String> add = Arrays.asList(new String[] { "Boiled Indian recipes" });
 
 		driver.get("https://www.tarladalal.com/recipes-for-cooking-basics-271");
 		Thread.sleep(2000);
@@ -47,7 +46,7 @@ public class LCHFFood_Processing_panfried {
 
 		for (int i = 0; i <= 1; i++) {
 			driver.navigate().to("https://www.tarladalal.com/recipes-for-cooking-basics-271?pageindex=" + i);
-			driver.findElement(By.xpath("//p/a[contains(text(),' stir-frying')]")).click();
+			driver.findElement(By.xpath("//p/a[contains(text(),' boiling')]")).click();
 			List<WebElement> recipeCardElements = driver.findElements(By.xpath("//article[@class='rcc_recipecard']"));
 			List<String> recipeUrls = new ArrayList<>();
 			Map<String, String> recipeIdUrls = new HashMap<>();
@@ -67,18 +66,15 @@ public class LCHFFood_Processing_panfried {
 				driver.navigate().to(recipeUrl);
 				driver.manage().timeouts().implicitlyWait(2, TimeUnit.SECONDS);
 				try {
-
 					try {
 						if ((isAdded(add))) {
-							ExcelWriter writeOutput = new ExcelWriter();
-
-							
+							WriteExcel writeOutput = new WriteExcel();
 
 							// Recipe id
 							try {
-								writeOutput.setCellData("LCHFFoodPanFried", rowCounter, 0, recipeId);
+								writeOutput.setCellData("LCHFFoodBoiling", rowCounter, 0, recipeId);
 							} catch (Exception e) {
-								
+
 							}
 
 							// Recipe Name
@@ -86,9 +82,9 @@ public class LCHFFood_Processing_panfried {
 								WebElement recipeTitle = driver
 										.findElement(By.xpath("//span[@id='ctl00_cntrightpanel_lblRecipeName']"));
 								System.out.print("Recipe Name: " + recipeTitle.getText());
-								writeOutput.setCellData("LCHFFoodPanFried", rowCounter, 1, recipeTitle.getText());
+								writeOutput.setCellData("LCHFFoodBoiling", rowCounter, 1, recipeTitle.getText());
 							} catch (Exception e) {
-								
+
 							}
 
 							try {
@@ -99,19 +95,19 @@ public class LCHFFood_Processing_panfried {
 
 								if (recipeCategoryText.equalsIgnoreCase("breakfast")
 										|| recipeCategoryText.contains("breakfast")) {
-									writeOutput.setCellData("LCHFFoodPanFried", rowCounter, 2,
+									writeOutput.setCellData("LCHFFoodBoiling", rowCounter, 2,
 											recipeCategory.getText().replace("Tags", " "));
 								} else if (recipeCategoryText.equalsIgnoreCase("lunch")
 										|| recipeCategoryText.contains("lunch")) {
-									writeOutput.setCellData("LCHFFoodPanFried", rowCounter, 2,
+									writeOutput.setCellData("LCHFFoodBoiling", rowCounter, 2,
 											recipeCategory.getText().replace("Tags", " "));
 								} else if (recipeCategoryText.equalsIgnoreCase("snack")
 										|| recipeCategoryText.contains("snack")) {
-									writeOutput.setCellData("LCHFFoodPanFried", rowCounter, 2,
+									writeOutput.setCellData("LCHFFoodBoiling", rowCounter, 2,
 											recipeCategory.getText().replace("Tags", " "));
 								} else if (recipeCategoryText.equalsIgnoreCase("dinner")
 										|| recipeCategoryText.contains("dinner")) {
-									writeOutput.setCellData("LCHFFoodPanFried", rowCounter, 2,
+									writeOutput.setCellData("LCHFFoodBoiling", rowCounter, 2,
 											recipeCategory.getText().replace("Tags", " "));
 								}
 
@@ -119,8 +115,7 @@ public class LCHFFood_Processing_panfried {
 								e.printStackTrace();
 							}
 
-//						
-
+//					
 							try {
 								// WebElement foodCategory =
 								// driver.findElement(By.xpath("//div[@id='recipe_tags']"));
@@ -132,23 +127,23 @@ public class LCHFFood_Processing_panfried {
 								System.out.print("Food Category: " + foodCategory.getText());
 
 								if (foodCategoryText.equalsIgnoreCase("Vegan") || foodCategoryText.contains("Vegan")) {
-									writeOutput.setCellData("LCHFFoodPanFried", rowCounter, 3,
+									writeOutput.setCellData("LCHFFoodBoiling", rowCounter, 3,
 											foodCategory.getText().replace("Tags", " "));
 								} else if (foodCategoryText.equalsIgnoreCase("Vegeterian")
 										|| foodCategoryText.contains("Vegeterian")) {
-									writeOutput.setCellData("LCHFFoodPanFried", rowCounter, 3,
+									writeOutput.setCellData("LCHFFoodBoiling", rowCounter, 3,
 											foodCategory.getText().replace("Tags", " "));
 								} else if (foodCategoryText.equalsIgnoreCase("Jain")
 										|| foodCategoryText.contains("Jain")) {
-									writeOutput.setCellData("LCHFFoodPanFried", rowCounter, 3,
+									writeOutput.setCellData("LCHFFoodBoiling", rowCounter, 3,
 											foodCategory.getText().replace("Tags", " "));
 								} else if (foodCategoryText.equalsIgnoreCase("Eggitarian")
 										|| foodCategoryText.contains("Eggitarian")) {
-									writeOutput.setCellData("LCHFFoodPanFried", rowCounter, 3,
+									writeOutput.setCellData("LCHFFoodBoiling", rowCounter, 3,
 											foodCategory.getText().replace("Tags", " "));
 								} else if (foodCategoryText.equalsIgnoreCase("Non-veg")
 										|| foodCategoryText.contains("Non-veg")) {
-									writeOutput.setCellData("LCHFFoodPanFried", rowCounter, 3,
+									writeOutput.setCellData("LCHFFoodBoiling", rowCounter, 3,
 											foodCategory.getText().replace("Tags", " "));
 								}
 							} catch (Exception e) {
@@ -158,7 +153,7 @@ public class LCHFFood_Processing_panfried {
 							try {
 								WebElement nameOfIngredients = driver.findElement(By.xpath("//div[@id= 'rcpinglist']"));
 								System.out.print(nameOfIngredients.getText());
-								writeOutput.setCellData("LCHFFoodPanFried", rowCounter, 4, nameOfIngredients.getText());
+								writeOutput.setCellData("LCHFFoodBoiling", rowCounter, 4, nameOfIngredients.getText());
 
 							} catch (Exception e) {
 
@@ -168,7 +163,7 @@ public class LCHFFood_Processing_panfried {
 								WebElement preparationTime = driver
 										.findElement(By.xpath("//p/time[@itemprop= 'prepTime']"));
 								System.out.print(preparationTime.getText());
-								writeOutput.setCellData("LCHFFoodPanFried", rowCounter, 5, preparationTime.getText());
+								writeOutput.setCellData("LCHFFoodBoiling", rowCounter, 5, preparationTime.getText());
 
 							} catch (Exception e) {
 
@@ -177,7 +172,7 @@ public class LCHFFood_Processing_panfried {
 							try {
 								WebElement cookTime = driver.findElement(By.xpath("//p/time[@itemprop= 'cookTime']"));
 								System.out.print(cookTime.getText());
-								writeOutput.setCellData("LCHFFoodPanFried", rowCounter, 6, cookTime.getText());
+								writeOutput.setCellData("LCHFFoodBoiling", rowCounter, 6, cookTime.getText());
 
 							} catch (Exception e) {
 
@@ -186,7 +181,7 @@ public class LCHFFood_Processing_panfried {
 							try {
 								WebElement tags = driver.findElement(By.xpath("//div[@id='recipe_tags']"));
 								System.out.print(tags.getText());
-								writeOutput.setCellData("LCHFFoodPanFried", rowCounter, 7, tags.getText().replace("Tags", " "));
+								writeOutput.setCellData("LCHFFoodBoiling", rowCounter, 7, tags.getText().replace("Tags", " "));
 
 							} catch (Exception e) {
 
@@ -196,7 +191,7 @@ public class LCHFFood_Processing_panfried {
 								WebElement No_of_servings = driver
 										.findElement(By.xpath("//span[@id='ctl00_cntrightpanel_lblServes']"));
 								System.out.print(No_of_servings.getText());
-								writeOutput.setCellData("LCHFFoodPanFried", rowCounter, 8, No_of_servings.getText());
+								writeOutput.setCellData("LCHFFoodBoiling", rowCounter, 8, No_of_servings.getText());
 
 							} catch (Exception e) {
 
@@ -206,7 +201,7 @@ public class LCHFFood_Processing_panfried {
 								WebElement cuisineCategory = driver
 										.findElement(By.xpath("//a[@itemprop='recipeCuisine' ]"));
 								System.out.print(cuisineCategory.getText());
-								writeOutput.setCellData("LCHFFoodPanFried", rowCounter, 9, cuisineCategory.getText());
+								writeOutput.setCellData("LCHFFoodBoiling", rowCounter, 9, cuisineCategory.getText());
 
 							} catch (Exception e) {
 
@@ -216,7 +211,7 @@ public class LCHFFood_Processing_panfried {
 								WebElement recipeDescription = driver
 										.findElement(By.xpath("//p[@id='recipe_description']"));
 								System.out.print(recipeDescription.getText());
-								writeOutput.setCellData("LCHFFoodPanFried", rowCounter, 10, recipeDescription.getText());
+								writeOutput.setCellData("LCHFFoodBoiling", rowCounter, 10, recipeDescription.getText());
 
 							} catch (Exception e) {
 
@@ -226,7 +221,7 @@ public class LCHFFood_Processing_panfried {
 								WebElement prepMethod = driver
 										.findElement(By.xpath("//div[@id= 'ctl00_cntrightpanel_pnlRcpMethod']"));
 								System.out.print(prepMethod.getText());
-								writeOutput.setCellData("LCHFFoodPanFried", rowCounter, 11, prepMethod.getText());
+								writeOutput.setCellData("LCHFFoodBoiling", rowCounter, 11, prepMethod.getText());
 
 							} catch (Exception e) {
 
@@ -234,14 +229,14 @@ public class LCHFFood_Processing_panfried {
 							try {
 								WebElement nutrients = driver.findElement(By.xpath("//table[@id= 'rcpnutrients']"));
 								System.out.print(nutrients.getText());
-								writeOutput.setCellData("LCHFFoodPanFried", rowCounter, 12, nutrients.getText());
+								writeOutput.setCellData("LCHFFoodBoiling", rowCounter, 12, nutrients.getText());
 
 							} catch (Exception e) {
 
 							}
 							try {
 								System.out.print(recipeUrl);
-								writeOutput.setCellData("LCHFFoodPanFried", rowCounter, 13, recipeUrl);
+								writeOutput.setCellData("LCHFFoodBoiling", rowCounter, 13, recipeUrl);
 							} catch (Exception e) {
 
 							}
@@ -260,10 +255,7 @@ public class LCHFFood_Processing_panfried {
 
 			}
 		}
-
 	}
-
-
 
 	private static boolean isAdded(List<String> add) {
 		AtomicBoolean isTagPresent = new AtomicBoolean(false);
