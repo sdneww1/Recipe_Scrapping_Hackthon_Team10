@@ -12,7 +12,7 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.concurrent.TimeUnit;
+
 import java.util.concurrent.atomic.AtomicBoolean;
 
 import org.openqa.selenium.By;
@@ -115,7 +115,7 @@ public class Allergy {
 								String recipeId = recipeIdUrlEntry.getKey();
 								dbInputVO.setRecipeId(recipeId);
 								driver.navigate().to(recipeUrl);
-								driver.manage().timeouts().implicitlyWait(2, TimeUnit.SECONDS);
+								driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
 
 								try {
 									try {
